@@ -1,0 +1,91 @@
+//
+//  CLEmptySaleView.m
+//  shitongbada
+//
+//  Created by hezhijingwei on 2017/7/12.
+//  Copyright © 2017年 秦传龙. All rights reserved.
+//
+
+#import "CLEmptySaleView.h"
+
+@interface CLEmptySaleView ()
+
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+
+
+@end
+
+
+@implementation CLEmptySaleView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+       
+        [self addSubview:self.imageView];
+        [self addSubview:self.titleLabel];
+        
+    }
+    return self;
+}
+
+
+- (UILabel *)titleLabel {
+    
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.font = [UIFont systemFontOfSize:16];
+        _titleLabel.textColor = [UIColor colorWithRed:159.0f/255.0f green:159.0f/255.0f blue:159.0f/255.0f alpha:1];
+    }
+    return _titleLabel;
+}
+
+
+- (UIImageView *)imageView {
+    
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc] init];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _imageView;
+}
+
+- (void)setImageNamed:(NSString *)imageNamed {
+    _imageNamed = imageNamed;
+    
+    UIImage *image = [UIImage imageNamed:imageNamed];
+    
+    CGFloat imageheight = image.size.height;
+    CGFloat imageWidth  = image.size.width;
+    CGFloat labelHeight = 40.0f;
+    CGFloat width       = 70;
+    CGFloat thisHeight  = self.bounds.size.height;
+    CGFloat thisWidth   = self.bounds.size.width;
+    
+    if (image) {
+        self.imageView.image = image;
+        self.imageView.frame = CGRectMake((thisWidth-width)/2.0f, (thisHeight-(imageheight*width/imageWidth+labelHeight))/2.0f, width, imageheight*width/imageWidth);
+    }
+    
+    
+
+}
+
+- (void)setTitle:(NSString *)title {
+    _title = title;
+
+    self.titleLabel.text = title;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.titleLabel.frame = CGRectMake(0, CGRectGetMaxY(self.imageView.frame), self.bounds.size.width, 40);
+
+    
+}
+
+
+@end
